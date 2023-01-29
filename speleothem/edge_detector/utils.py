@@ -5,7 +5,6 @@ def serch_best_parameters(image_file: str, real_value):
     img = cv2.imread(image_file)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     img = cv2.GaussianBlur(img, (3, 3), 3, 3)
-    real_value = 4*2
     error = 99999
     valor_contagem = 0
     valor_min = 0
@@ -31,6 +30,16 @@ def count_edge(img):
         for y in range(img.shape[0]):
             if img[y][x] == 255:
                 count += 1
-        counts.append(count)
+        counts.append(count/2)
 
     return np.mean(counts), np.std(counts)
+
+def count_canny(file, max, min):
+    img = cv2.imread(file)
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    img = cv2.GaussianBlur(img, (3, 3), 3, 3)
+
+    img_canny = cv2.Canny(img, min, max)
+    contagem, std = count_edge(img_canny)
+
+    return contagem
