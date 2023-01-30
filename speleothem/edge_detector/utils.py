@@ -57,8 +57,8 @@ def search_best_parameters_database(database_dir, image_dir):
     
     values = [0, 0]
 
-    for max in range(10, 40):
-        for min in range(0, max):
+    for max in range(10, 25):
+        for min in range(10, max):
             df["count_method"] = df.file.apply(count_method)
 
             error = mean_absolute_error(df["count"].to_numpy(), df["count_method"].to_numpy())
@@ -69,3 +69,4 @@ def search_best_parameters_database(database_dir, image_dir):
                 values[1] = max
 
     return values[0], values[1], error_aux
+
