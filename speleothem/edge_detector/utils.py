@@ -50,14 +50,14 @@ def count_canny(file, min, max, center=False):
 
     return contagem
 
-def count_find_peaks(file):
+def count_find_peaks(file, a=2):
     img = cv2.imread(file)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     img = img[:, img.shape[1]//2: img.shape[1]//2 + 1]
     img = img.reshape((img.shape[0],))
 
     peaks = find_peaks(img)
-    count = len(peaks[0])/2
+    count = len(peaks[0])/a
 
     return count
 
