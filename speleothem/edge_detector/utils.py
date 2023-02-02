@@ -46,6 +46,7 @@ def count_canny(file, min, max, center=False):
         img = img[:, img.shape[1]//2: img.shape[1]//2 + 1]
 
     img_canny = cv2.Canny(img, min, max)
+    
     contagem, std = count_edge(img_canny)
 
     return contagem
