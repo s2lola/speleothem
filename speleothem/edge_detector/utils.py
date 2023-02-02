@@ -61,7 +61,7 @@ def count_find_peaks(file, a=2):
 
     return count
 
-def search_best_parameters_database(database_dir, image_dir, center=False):
+def search_best_parameters_database(database_dir, image_dir, center=False, a=10, b=25):
     df = pd.read_csv(database_dir)
 
     def count_method(x):
@@ -71,9 +71,6 @@ def search_best_parameters_database(database_dir, image_dir, center=False):
     error_aux = float("inf")
     
     values = [0, 0]
-
-    a = 10
-    b = 25
 
     for max in range(a, b):
         for min in range(a, max):
