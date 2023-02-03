@@ -85,3 +85,25 @@ def search_best_parameters_database(database_dir, image_dir, center=False, a=10,
                 values[1] = max
 
     return values[0], values[1], error_aux
+
+def search_best_parameters_df(df, image_dir, center=False, a=10, b=25):
+    def count_method(x):
+        file = f"{image_dir}/{x}.png"
+        return count_canny(file, min, max, center)
+    
+    error_aux = float("inf")
+    
+    values = [0, 0]
+
+    for max in range(a, b):
+        for min in range(a, max):
+            df["count_method"] = df.file.apply(count_method)
+
+            error = mean_absolute_error(df["count"].to_numpy(), df["count_method"].to_numpy())
+
+            if error < error_aux:
+                error_aux = error
+                values[0] = min
+                values[1] = max
+
+    return values[0], values[1], error_aux
